@@ -1,4 +1,4 @@
-﻿@model BeauitySaloonWeb.Models.ViewModel.Home.IndexViewModel
+﻿@model BeauitySaloonWeb.Models.ViewModel.Categories.CategoriesListViewModel
 @{
     this.ViewData["Title"] = "Home Page";
 }
@@ -118,7 +118,7 @@
                     <div class="news_title">Latest Blog Posts</div>
                     <div class="news_container">
                         <div>
-                            @await Component.InvokeAsync("LatestBlogPosts", 4)
+                            @*@await Component.InvokeAsync("LatestBlogPosts", 4)*@
                         </div>
                     </div>
                 </div>

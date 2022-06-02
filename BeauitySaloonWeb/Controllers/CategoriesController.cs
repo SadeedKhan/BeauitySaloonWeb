@@ -20,35 +20,20 @@ namespace BeauitySaloonWeb.Controllers
         {
             try
             {
-                //var list = new List<Category>();
                 var viewModel = new CategoriesListViewModel();
-                var cat =new IEnumerable<CategoryViewModel>();
-                var list = from user in _applicationDbContext.Categories;
+                IEnumerable<Category> list = _applicationDbContext.Categories.ToList();
+                Mapper.CreateMap<Category, CategoryViewModel>();
                 if (list.Any())
                 {
-                   
-                        viewModel.Categories = Mapper.Map<list, viewModel.Categories>(user);
+                    viewModel.Categories = Mapper.Map<IEnumerable<CategoryViewModel>>(list); //does not work, "cannot convert from 'System.Collections.Generic.IEnumerable<BloodDonatorsApp.Models.Donation>' to 'BloodDonatorsApp.Models.Donation'
                 }
-
-                if (list.Count > 0)
-                {
-                    var viewModel = new CategoriesListViewModel
-                    {
-                        Categories = Mapper.Map<list, Categories>,
-                    };
-                    return View(viewModel);
-                }
-                return View();
+                return View(viewModel);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                ViewBag.Exception = ex.Message.ToString();
+                return View("Error");
             }
-          
-            //var viewModel = new CategoriesListViewModel
-            //{
-            //    Categories=mapper.Map() _applicationDbContext.Categories,
-            //};
         }
     }
 }
