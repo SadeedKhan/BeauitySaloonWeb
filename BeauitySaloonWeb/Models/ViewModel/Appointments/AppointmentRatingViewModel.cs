@@ -7,7 +7,7 @@ using System.Web;
 
 namespace BeauitySaloonWeb.Models.ViewModel.Appointments
 {
-    public class AppointmentRatingViewModel : Appointment
+    public class AppointmentRatingViewModel
     {
         
         public string Id { get; set; }
