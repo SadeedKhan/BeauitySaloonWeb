@@ -34,8 +34,6 @@ namespace BeauitySaloonWeb.Models
         // For every past (and confirmed) appointment the User can Rate the Salon
         // But rating can be given only once for each appointment
         public bool? IsSalonRatedByTheUser { get; set; }
-
-
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public bool IsDeleted { get; set; }
