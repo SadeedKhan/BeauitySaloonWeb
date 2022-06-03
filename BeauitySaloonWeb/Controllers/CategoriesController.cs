@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.Categories;
-using EmitMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;

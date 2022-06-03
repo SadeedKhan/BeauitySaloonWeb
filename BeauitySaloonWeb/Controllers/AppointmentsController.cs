@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BeauitySaloonWeb.Models;
+using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Controllers
