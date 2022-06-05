@@ -199,11 +199,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\BlobPostsController.cs" />
+    <Compile Include="Controllers\BlogPostsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SalonsController.cs" />
+    <Compile Include="CustomsValidations\CustomsRoles.cs" />
     <Compile Include="CustomsValidations\DataValidations.cs" />
     <Compile Include="CustomsValidations\DateTimeFormats.cs" />
     <Compile Include="CustomsValidations\ErrorMessages.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Models\ViewModel\Salons\SalonServiceViewModel.cs" />
     <Compile Include="Models\ViewModel\Salons\SalonSimpleViewModel.cs" />
     <Compile Include="Models\ViewModel\Salons\SalonsListViewModel.cs" />
+    <Compile Include="Models\ViewModel\Salons\SalonsPaginatedListViewModel.cs" />
     <Compile Include="Models\ViewModel\Salons\SalonsSimpleListViewModel.cs" />
     <Compile Include="Models\ViewModel\Salons\SalonViewModel.cs" />
     <Compile Include="Models\ViewModel\Salons\SalonWithServicesViewModel.cs" />
@@ -547,6 +549,13 @@
     <Content Include="Views\Salons\Details.cshtml" />
     <Content Include="Views\Salons\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Shared\_MenuItemsPartial.cshtml" />
+    <Content Include="Views\Shared\_SearchBarPartial.cshtml" />
+    <Content Include="Views\Shared\Error404.cshtml" />
+    <Content Include="Views\Shared\_HeaderPartial.cshtml" />
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
+    <Content Include="Views\BlogPosts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

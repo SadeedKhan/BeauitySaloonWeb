@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BeauitySaloonWeb.CustomsValidations;
 using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.BlogPosts;
 using System;
@@ -11,31 +12,45 @@ namespace BeauitySaloonWeb.Controllers
 {
     public class BlogPostsController : Controller
     {
-        private readonly ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
-
-        // GET: BlogPosts
-        public ActionResult Index()
+        private static ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
+        // GET: BlobPosts
+        public ActionResult Index(
+             int? sortId,
+             int? pageNumber) // blogPostId
         {
-
-            try
+            Mapper.CreateMap<BlogPost, BlogPostViewModel>();
+            var viewModel = new BlogPostsPaginatedListViewModel();
+            if (sortId != null)
             {
-                var viewModel = new BlogPostsListViewModel();
-
-                IEnumerable<BlogPost> list = _applicationDbContext.BlogPosts.ToList();
-
-                Mapper.CreateMap<BlogPost, BlogPostViewModel>();
-                if (list.Any())
+                var blogPost = _applicationDbContext.BlogPosts.Where(x => x.Id == sortId).FirstOrDefault();
+                if (blogPost == null)
                 {
-                    viewModel.BlogPosts = Mapper.Map<IEnumerable<BlogPostViewModel>>(list); //does not work, "cannot convert from 'System.Collections.Generic.IEnumerable<BloodDonatorsApp.Models.Donation>' to 'BloodDonatorsApp.Models.Donation'
+                    ViewBag.Exception = "No BlobPost Found...!";
+                    return View("Error"); ;
                 }
-                return View(viewModel);
             }
-            catch (Exception ex)
+            this.ViewData["CurrentSort"] = sortId;
+            int pageSize = 1;
+            var pageIndex = pageNumber ?? 1;
+            var blogPosts = Mapper.Map<IEnumerable<BlogPostViewModel>>(GetAllWithPaging(sortId, pageSize, pageIndex));
+            var blogPostsList = blogPosts.ToList();
+            var count = _applicationDbContext.BlogPosts.Count();
+            var list = new PaginatedList<BlogPostViewModel>(blogPostsList, count, pageIndex, pageSize);
+            if (list.Any())
             {
-                ViewBag.Exception = ex.Message.ToString();
-                return View("Error");
+                viewModel.BlogPosts = list;
             }
-            
+            return this.View(viewModel);
+        }
+
+        private IEnumerable<BlogPost> GetAllWithPaging(int? sortId, int pageSize, int pageIndex)
+        {
+            IEnumerable<BlogPost> query = _applicationDbContext.BlogPosts.OrderByDescending(x => x.CreatedOn);
+            if (sortId != null)
+            {
+                query = query.Where(x => x.Id == sortId);
+            }
+            return query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
     }
 }

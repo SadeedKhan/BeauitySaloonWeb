@@ -32,10 +32,14 @@ namespace BeauitySaloonWeb.Controllers
             }
         }
 
-        public ActionResult About()
+        public ActionResult Privacy()
         {
-            ViewBag.Message = "Your application description page.";
+            return View();
+        }
 
+        [Route("/Home/Error/404")]
+        public ActionResult Error404()
+        {
             return View();
         }
 

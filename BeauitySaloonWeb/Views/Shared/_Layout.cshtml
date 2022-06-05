@@ -28,56 +28,52 @@
     @this.RenderSection("Styles", required: false)
 </head>
 <body>
-
-    <partial name="_CookieConsentPartial" />
-
     <div class="super_container">
-
         <!-- Menu -->
-        <partial name="_MenuPartial" />
+        @Html.Partial("_MenuPartial")
 
         <!-- Home -->
         @if (this.ViewData["Title"].ToString() == "Home Page")
         {
-            <div class="home-home">
-                <div class="background_image" style="background-image:url(@Images.Index)"></div>
+        <div class="home-home">
+            <div class="background_image" style="background-image:url(@Images.Index)"></div>
 
-                <partial name="_HeaderPartial" />
+            @Html.Partial("_HeaderPartial")
 
-                <div class="home_container-home">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="home_title-home">BEAUTY BOOKING</div>
-                                <div class="home_text">The only right way to find and book your beauty services!</div>
-                                <div class="button home_button">
-                                    <a asp-area="" asp-controller="Salons" asp-action="Index"><span>Book Now</span><span>Book Now</span></a>
-                                </div>
+            <div class="home_container-home">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="home_title-home">BEAUTY BOOKING</div>
+                            <div class="home_text">The only right way to find and book your beauty services!</div>
+                            <div class="button home_button">
+                                <a href="/Salons/Index"><span>Book Now</span><span>Book Now</span></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         }
         else
         {
-            <div class="home">
-                <div class="background_image" style="background-image:url(@Images.CoverBackground)"></div>
+        <div class="home">
+            <div class="background_image" style="background-image:url(@Images.CoverBackground)"></div>
 
-                <partial name="_HeaderPartial" />
+            @Html.Partial("_HeaderPartial")
 
-                <div class="home_container">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div class="home_content">
-                                    <div class="home_title">@this.ViewData["Title"]</div>
-                                </div>
+            <div class="home_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="home_content">
+                                <div class="home_title">@this.ViewData["Title"]</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         }
 
         <div class="m-5">
@@ -87,7 +83,7 @@
         </div>
 
         <!-- Footer -->
-        <partial name="_FooterPartial" />
+        @Html.Partial("_FooterPartial")
     </div>
 
     <environment names="Development">
@@ -116,3 +112,4 @@
     @this.RenderSection("Scripts", required: false)
 </body>
 </html>
+

@@ -1,0 +1,11 @@
+﻿
+<div class="search_content d-flex flex-row align-items-center justify-content-end ml-auto">
+    @Html.BeginForm("Index", "Salons", FormMethod.Get, new { @class = "search_container_form" })
+    {
+    <input type="text" name="SearchString" class="search_container_input"
+           placeholder="Search by salon name..." value="@ViewData["currentFilter"]" required="required" />
+    <button type="submit" value="Search" class="search_container_button"><i class="fa fa-search" aria-hidden="true"></i></button>
+    }
+    @*<form asp-area="" asp-controller="Salons" asp-action="Index" method="get" class="search_container_form">
+    </form>*@
+</div>

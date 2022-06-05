@@ -1,0 +1,23 @@
+﻿@using BeauitySaloonWeb.CustomsValidations
+@using BeauitySaloonWeb.Models
+@using Microsoft.AspNet.Identity
+
+@*@in  SignInManager<ApplicationUser>
+    SignInManager
+    @inject UserManager<ApplicationUser>
+        UserManager*@
+<li class="menu_item"><a href="/Home/Index" >Home</a></li>
+<li class="menu_item"><a href="/Categories/Index" >Categories</a></li>
+<li class="menu_item"><a  href="/Salons/Index" >Salons</a></li>
+<li class="menu_item"><a  href="/BlobPosts/Index" asp-controller="BlogPosts" asp-action="Index">Blog</a></li>
+<li class="menu_item">
+    <a  href="/Appointments/Index"><i class="fa fa-calendar" aria-hidden="true"></i> Appointments</a>
+</li>
+
+@*@if (SignInManager<ApplicationUser>.IsSignedIn(this.User) && this.User.IsInRole(CustomsRoles.SalonManagerRoleName))
+{
+    <li class="menu_item">
+        @Html.ActionLink("Salon Manager", "Index", "Dashboard", new { @class = "fa fa-tasks" })
+        <a asp-area="Manager" asp-controller="Dashboard" asp-action="Index"><i class="fa fa-tasks" aria-hidden="true"></i> Salon Manager</a>
+    </li>
+}*@
