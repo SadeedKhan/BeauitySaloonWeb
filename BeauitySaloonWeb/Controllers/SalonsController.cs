@@ -18,12 +18,6 @@ namespace BeauitySaloonWeb.Controllers
 
         private static ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
 
-
-        public ActionResult Index()
-        {
-            return View();  
-        }
-
         public ActionResult Index( int? sortId, // categoryId
             string currentFilter,
             string searchString,
@@ -38,13 +32,26 @@ namespace BeauitySaloonWeb.Controllers
                 if (category == null)
                 {
                     ViewBag.Exceptions = "No Salon Service Found...!";
-                    return this.View("Error");
-                }                
+                    return View("Error");
+                }
+              ViewData["CategoryName"] = category.Name;
             }
-            this.ViewData["CurrentFilter"] = sortId;
-            int pageSize = 1;
+
+            ViewData["CurrentSort"] = sortId;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = sortId;
+            int pageSize = 8;
             var pageIndex = pageNumber ?? 1;
-            var salons = Mapper.Map<IEnumerable<SalonViewModel>>(GetAllWithPaging(sortId, pageSize, pageIndex));
+            var salons = Mapper.Map<IEnumerable<SalonViewModel>>(GetAllWithPaging(searchString, sortId, pageSize, pageIndex));
             var salonsList = salons.ToList();
             var count = _applicationDbContext.Salons.Count();
 
@@ -53,18 +60,10 @@ namespace BeauitySaloonWeb.Controllers
             {
                 viewModel.Salons = list;
             }
-            return this.View(viewModel);
+            return View(viewModel);
 
         }
-        private IEnumerable<Salon> GetAllWithPaging(int? sortId, int pageSize, int pageIndex)
-        {
-            IEnumerable<Salon> query = _applicationDbContext.Salons.OrderByDescending(x => x.CreatedOn);
-            if (sortId != null)
-            {
-                query = query.Where(x => x.Id == sortId);
-            }
-            return query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-        }
+     
 
         public ActionResult Details(string id)
         {
@@ -84,7 +83,24 @@ namespace BeauitySaloonWeb.Controllers
                 SalonId = id
             };
             return this.View(viewModel);
+        }
 
+        //Custom Methods
+        private IEnumerable<Salon> GetAllWithPaging(string searchString, int? sortId, int pageSize, int pageIndex)
+        {
+            IEnumerable<Salon> query = _applicationDbContext.Salons.OrderBy(x => x.Name);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query
+                    .Where(x => x.Name.ToLower()
+                                .Contains(searchString.ToLower()));
+            }
+
+            if (sortId != null)
+            {
+                query = query.Where(x => x.CategoryId == sortId);
+            }
+            return query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
 
     }

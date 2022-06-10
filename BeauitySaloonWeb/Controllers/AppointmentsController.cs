@@ -2,10 +2,12 @@
 using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.Appointments;
 using BeauitySaloonWeb.Models.ViewModel.SalonServices;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Controllers
@@ -18,7 +20,15 @@ namespace BeauitySaloonWeb.Controllers
         // GET: Appointments
         public ActionResult Index()
         {
-            return View();
+           string UserId = User.Identity.GetUserId();
+            Mapper.CreateMap<Appointment, AppointmentViewModel>();
+            var viewModel = new AppointmentsListViewModel();
+            var list = _applicationDbContext.Appointments.AsEnumerable().Where(x => x.UserId == UserId && DbFunctions.TruncateTime(x.DateTime.Date) > DbFunctions.TruncateTime(DateTime.Now.Date));
+            if (list.Any())
+            {
+                viewModel.Appointments = Mapper.Map<IEnumerable<AppointmentViewModel>>(list); //does not work, "cannot convert from 'System.Collections.Generic.IEnumerable<BloodDonatorsApp.Models.Donation>' to 'BloodDonatorsApp.Models.Donation'
+            }
+            return View(viewModel);
         }
 
         public ActionResult MakeAnAppointment(string salonId, int serviceId)

@@ -1,61 +1,62 @@
-﻿
+﻿@model BeauitySaloonWeb.Models.ViewModel.Appointments.AppointmentsListViewModel
+
 @{
     ViewBag.Title = "Index";
 }
 
 
 
-@if (@Model.Appointments.Count() == 0)
+@if (@Model.Appointments == null)
 {
     <div class="row">
         <div class="col-lg-4 ml-lg-5">
             <div class="about_text_2">
                 <p>
-                    Пока что ничего не забронировано...
+                    Oh, no! Nothing booked yet...
                 </p>
             </div>
             <div class="about_text_highlight">
-                Запишитесь на услугу за 3 шага:
+                Book an appointment in 3 easy steps:
             </div>
             <div class="about_text_highlight">
                 <ol>
-                    <li> Выберите салон.</li>
-                    <li> Выберите услугу.</li>
-                    <li> Выберите желаему дату и время.</li>
+                    <li>Find a salon.</li>
+                    <li>Choose a beauty service.</li>
+                    <li>Pick date and time.</li>
                 </ol>
             </div>
             <div class="about_text_2">
                 <p>
-                    Всегда рады вам!
+                    Waiting you back here. :)
                 </p>
             </div>
-            <div class="row">
-                <div class="col-lg-4 ml-lg-5">
-                    <div class="button button-large button_1 elements_button mt-4">
-                        <a asp-area="" asp-controller="Salons" asp-action="Index">
-                            <span>Найти салон</span>
-                            <span>Найти салон</span>
-                        </a>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 ml-lg-5">
+            <div class="button button-large button_1 elements_button mt-4">
+                <a href="/Salons/Index">
+                    <span>Find Salons</span>
+                    <span>Find Salons</span>
+                </a>
             </div>
         </div>
     </div>
 }
 
-@if (@Model.Appointments.Count() > 0)
+@if (@Model.Appointments!=null)
 {
     <h2>Ближайшие (@Model.Appointments.Count())</h2>
 
     <table class="table table-bordered table-striped">
         <thead class="thead-light">
             <tr>
-                <th scope="col">Дата и время</th>
-                <th scope="col">Статус <span class="text-info">*</span></th>
-                <th scope="col">Салон</th>
-                <th scope="col">Адрес</th>
-                <th scope="col">Услуга</th>
-                <th scope="col">Отменить</th>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Status <span class="text-info">*</span></th>
+                <th scope="col">Salon</th>
+                <th scope="col">Address</th>
+                <th scope="col">Service</th>
+                <th scope="col">Cancelation</th>
             </tr>
         </thead>
         <tbody>
@@ -94,34 +95,37 @@
     <div class="row">
         <div class="col-lg-10 ml-lg-5">
             <div class="about_text_highlight">
-                <span class="text-info">*</span> Статус
+                <span class="text-info">*</span> Status
             </div>
             <div class="about_text_2">
                 <ol>
                     <li>
-                        <span class="badge badge-secondary">В процессе ожидания</span>
-                        -Ожидается подтверждения от салона.
+                        <span class="badge badge-secondary">Pending</span>
+                        - Waiting for the Salon's reply.
                     </li>
                     <li>
-                        <span class="badge badge-success">Подтверждено</span>
-                        - Отлично! Время забронировано.
-                        Ждем вас в назначенный час.
+                        <span class="badge badge-success">Confirmed</span>
+                        - Good! Your appointment is confirmed.
+                        They are expecting you on the set date and time.
                     </li>
                     <li>
-                        <span class="badge badge-danger">Отклонено</span>
-                        - Сожалеем, не удалось забронировать услуги в указаный день и выбранное время.
+                        <span class="badge badge-danger">Declined</span>
+                        - Sorry, the appointment can't happen on the set date and time.
+                        Check your email for rescheduling options from the Salon.
                     </li>
                 </ol>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4 ml-lg-5">
-            <div class="button button-large button_1 elements_button mt-4">
-                <a asp-area="" asp-controller="Salons" asp-action="Index">
-                    <span>Найти салон</span>
-                    <span>Найти салон</span>
-                </a>
+                <ul>
+                    <li>Or you can just <strong>book again.</strong> Remember the steps, right?</li>
+                    <li>Go find a salon, choose a service and pick date and time.</li>
+                    <li>
+                        <div class="button button-large button_1 elements_button mt-4">
+                            <a href="/Salons/Index">
+                                <span>Find Salons</span>
+                                <span>Find Salons</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -129,6 +133,3 @@
 
 <hr class="bg-dark m-4" style="height: 6px;" />
 
-<div>
-    @await Component.InvokeAsync("PastAppointments")
-</div>
