@@ -24,19 +24,8 @@ namespace BeauitySaloonWeb.Controllers
             int? pageNumber)
         {
 
-            Mapper.CreateMap<Category, CategorySimpleViewModel>();
+            Mapper.CreateMap<Salon, SalonViewModel>();
             var viewModel = new SalonsPaginatedListViewModel();
-            if (sortId != null)
-            {            
-                var category = Mapper.Map<CategorySimpleViewModel>(_applicationDbContext.Categories.Where(x => x.Id == sortId).SingleOrDefault());         
-                if (category == null)
-                {
-                    ViewBag.Exceptions = "No Salon Service Found...!";
-                    return View("Error");
-                }
-              ViewData["CategoryName"] = category.Name;
-            }
-
             ViewData["CurrentSort"] = sortId;
 
             if (searchString != null)
@@ -70,7 +59,7 @@ namespace BeauitySaloonWeb.Controllers
 
             Mapper.CreateMap<SalonService, SalonServiceSimpleViewModel>();
             
-            var salonService = Mapper.Map<SalonServiceSimpleViewModel>(_applicationDbContext.SalonServices.Where(x => x.SalonId == id).SingleOrDefault());
+            var salonService = _applicationDbContext.SalonServices.Where(x => x.SalonId == id).SingleOrDefault();
 
             if (salonService == null || !salonService.Available)
             {
@@ -100,7 +89,7 @@ namespace BeauitySaloonWeb.Controllers
             {
                 query = query.Where(x => x.CategoryId == sortId);
             }
-            return query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return query;
         }
 
     }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Models.ViewModel.Salons
 {
@@ -32,6 +33,7 @@ namespace BeauitySaloonWeb.Models.ViewModel.Salons
 
         [DataType(DataType.Upload)]
         [ValidateImageFile(ErrorMessage = ErrorMessages.Image)]
-        public IFormFile Image { get; set; }
+        [AllowHtml]
+        public HttpPostedFileWrapper Image { get; set; }
     }
 }

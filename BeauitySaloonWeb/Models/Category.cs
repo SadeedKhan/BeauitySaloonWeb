@@ -16,7 +16,7 @@ namespace BeauitySaloonWeb.Models
         }
 
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         [MaxLength(DataValidations.NameMaxLength)]

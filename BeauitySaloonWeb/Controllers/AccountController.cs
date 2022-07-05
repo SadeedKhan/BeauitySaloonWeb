@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.Accounts;
+using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace BeauitySaloonWeb.Controllers
 {
@@ -15,7 +17,8 @@ namespace BeauitySaloonWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+       
+        private static ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -70,23 +73,33 @@ namespace BeauitySaloonWeb.Controllers
             {
                 return View(model);
             }
-
+            var user = new ApplicationUser
+            {
+                Email = model.Email,
+                PasswordHash = model.Password
+            };
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            var result1 = _userManager.Users.Where(x => x.Email == model.Email && x.PasswordHash == model.Password);
+            var result =  await SignInManager.PasswordSignInAsync(model.Email,model.Password,true,model.RememberMe);
+            if (result != null )
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                //_applicationDbContext.UsersRoel
+                // Initialization.    
+                var logindetails = result;
+                // Login In.    
+                //this.SignInUser(result., result.role_id, false);
+                // setting.    
+                //this.Session["role_id"] = logindetails.role_id;
+                // Info.    
+                return this.RedirectToLocal(returnUrl);
             }
+            else
+            {
+                // Setting.    
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+            }
+            return View(model);
         }
 
         //
@@ -420,6 +433,20 @@ namespace BeauitySaloonWeb.Controllers
 
             base.Dispose(disposing);
         }
+
+        private void SignInUser(string username, int role_id, bool isPersistent)
+        {
+            // Initialization.    
+            var claims = new List<Claim>();
+                // Setting    
+                claims.Add(new Claim(ClaimTypes.Name, username));
+                claims.Add(new Claim(ClaimTypes.Role, role_id.ToString()));
+                var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+                var authenticationManager = AuthenticationManager;
+                // Sign In.    
+                authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, claimIdenties);
+        }
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

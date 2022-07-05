@@ -20,17 +20,22 @@
 
                         <!-- Slider -->
                         <div class="owl-carousel owl-theme dept_slider">
-
-                            @foreach (var category in Model.Categories)
-                            {
-                                <div class="owl-item dept_item">
-                                    <div class="dept_image"><img src="@category.ImageUrl" alt=""></div>
-                                    <div class="dept_content">
-                                        <div class="dept_title">@category.Name</div>
-                                        <div class="dept_link"><a>@category.Description</a></div>
-                                    </div>
-                                </div>
+                            @{
+                                if (Model.Categories != null)
+                                {
+                                    foreach (var category in Model.Categories)
+                                    {
+                                        <div class="owl-item dept_item">
+                                            <div class="dept_image"><img src="@category.ImageUrl" alt=""></div>
+                                            <div class="dept_content">
+                                                <div class="dept_title">@category.Name</div>
+                                                <div class="dept_link"><a>@category.Description</a></div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
                             }
+
 
                         </div>
                     </div>

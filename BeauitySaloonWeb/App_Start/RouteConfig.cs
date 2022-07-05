@@ -16,8 +16,15 @@ namespace BeauitySaloonWeb
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "BeautySaloonWeb.Controllers" }
             );
+            routes.MapRoute(
+              name: "Appointments",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "Appointments", action = "Index", id = UrlParameter.Optional },
+              namespaces: new[] { "BeautySaloonWeb.Controllers" }
+          );
         }
     }
 }

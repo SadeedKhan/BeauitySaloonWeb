@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beauty Saloon</title>
+    <link href="~/Content/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+
+    <link href="~/Context/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Context/plugins/OwlCarousel2-2.2.1/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/plugins/OwlCarousel2-2.2.1/owl.theme.default.css" rel="stylesheet" />
+
+    <link href="~/Context/plugins/OwlCarousel2-2.2.1/owl.theme.default.css" rel="stylesheet" />
+    <link href="~/Context/plugins/OwlCarousel2-2.2.1/animate.css" rel="stylesheet" />
+    <link href="~/Context/css/site.css" rel="stylesheet" />
+    <link href="~/Context/css/responsive.css" rel="stylesheet" />
+    <link href="~/Context/css/sidebar.css" rel="stylesheet" />
+
+    @this.RenderSection("Styles", required: false)
+</head>
+<body>
+
+    <div class="super_container">
+
+        <!-- Menu -->
+        @Html.Partial("_AdminMenuPartial")
+
+        <!-- Home -->
+        @Html.Partial("_AdminHeaderPartial")
+
+        <div style="padding-top: 90px;">
+
+            <div class="text-center">
+                <a style="color: #BA55D3" href="/Home/Index"><strong>BACK TO HOME PAGE</strong></a>
+            </div>
+            <hr class="bg-dark mx-4" style="height: 6px;" />
+            <div class="d-flex" id="wrapper">
+
+                <!-- Sidebar -->
+                @Html.Partial("_AdminSidebarPartial")
+
+                <!-- Page Content -->
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="col-12">
+                            <main role="main">
+                                @this.RenderBody()
+                            </main>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr class="bg-dark mx-4" style="height: 6px;" />
+
+    </div>
+        <script src="~/Content/lib/jquery/dist/jquery.js"></script>
+        <script src="~/Content/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/Content/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Content/js/popper.js" ></script>
+        <script src="~/Content/lib/bootstrap/dist/js/bootstrap.js" ></script>
+        <script src="~/Content/plugins/OwlCarousel2-2.2.1/owl.carousel.js" ></script>
+        <script src="~/Content/plugins/easing/easing.js" ></script>
+        <script src="~/Content/plugins/parallax-js-master/parallax.min.js" ></script>
+        <script src="~/Content/js/site.js" ></script>
+
+    @this.RenderSection("Scripts", required: false)
+</body>
+</html>

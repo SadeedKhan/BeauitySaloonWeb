@@ -24,7 +24,7 @@ namespace BeauitySaloonWeb.Controllers
             Mapper.CreateMap<Appointment, AppointmentViewModel>();
             var viewModel = new AppointmentsListViewModel();
             var list = _applicationDbContext.Appointments.AsEnumerable().Where(x => x.UserId == UserId && DbFunctions.TruncateTime(x.DateTime.Date) > DbFunctions.TruncateTime(DateTime.Now.Date));
-            if (list.Any())
+            if (list != null && list.Any())
             {
                 viewModel.Appointments = Mapper.Map<IEnumerable<AppointmentViewModel>>(list); //does not work, "cannot convert from 'System.Collections.Generic.IEnumerable<BloodDonatorsApp.Models.Donation>' to 'BloodDonatorsApp.Models.Donation'
             }
