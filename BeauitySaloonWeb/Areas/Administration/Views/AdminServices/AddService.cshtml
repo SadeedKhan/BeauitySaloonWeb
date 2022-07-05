@@ -1,0 +1,47 @@
+﻿@model BeauitySaloonWeb.Models.ViewModel.Services.ServiceInputModel
+@{
+    ViewBag.Title = "AddService";
+    var categories = this.ViewData["Categories"] as SelectList;
+}
+
+<h2>Add Service</h2>
+
+<div class="col-lg-6">
+    <h2>New Service</h2>
+    @using (Html.BeginForm("Add City", "AdminServices", FormMethod.Post, new { @class = "pt-4" }))
+    {
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @required = "required" })
+                <span>@Html.ValidationMessageFor(x => x.Name, null, new { @class = "text-danger" })</span>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Category</label>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(x => x.CategoryId, categories, new { @class = "form-control" })
+                <span>@Html.ValidationMessageFor(x => x.CategoryId, null, new { @class = "text-danger" })</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(x => x.Description, new { @class = "form-control", @required = "required" })
+                <span>@Html.ValidationMessageFor(x => x.Description, null, new { @class = "text-danger" })</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 text-right">
+                <button type="submit" class="btn btn-success">
+                    Add Category
+                </button>
+            </div>
+            <div class="col-sm-6">
+                <a class="btn btn-danger" href="/Administration/AdminServices/Index">Cancel</a>
+            </div>
+        </div>
+
+    }
+</div>
