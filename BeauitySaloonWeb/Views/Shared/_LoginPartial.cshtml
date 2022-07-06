@@ -1,27 +1,24 @@
-﻿
-@using BeauitySaloonWeb.
-@using BeauitySaloonWeb.Models
-@using Microsoft.AspNet.Identity
-@model SignInManager<ApplicationUser> SignInManager
-@model UserManager<ApplicationUser> UserManage
-@{
-    if (this.SignInManager.IsSignedIn(UserManager.User))
+﻿@{
+    if (User.Identity.IsAuthenticated)
     {
         <li>
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
+            <a asp-area="Identity"  title="Manage">Hello @(this.User.Identity.Name)!</a>
         </li>
-        if (this.User.IsInRole("Administration"))
-        {
+        if (HttpContext.Current.User.IsInRole("Administration"))
+        { 
             <li>
                 <a href="~/Administration/Dashboard/Index" title="Admin">Admin</a>
             </li>
         }
-<li>
-    @using (Html.Be
-    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-        <button class="btn btn-dark" type="submit">Logout</button>
-    </form>
-</li>
+        <li>
+            @using (Html.BeginForm("Logoff", "Account", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+            {
+            @Html.AntiForgeryToken()
+                @*<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(Html.Action("Index", "Home", new { area = string.Empty }))">
+                    </form>*@
+                <button class="btn btn-dark" type="submit">Logout</button>
+            }
+        </li>
     }
     else
     {
@@ -30,4 +27,5 @@
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     }
 }
+
 

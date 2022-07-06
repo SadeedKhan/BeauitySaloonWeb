@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beauty Saloon</title>
 
-    <environment names="Development">
         <link href="~/Content/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/Content/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/Content/plugins/OwlCarousel2-2.2.1/owl.carousel.css" rel="stylesheet" asp-append-version="true" />
@@ -14,16 +13,6 @@
         <link href="~/Content/plugins/OwlCarousel2-2.2.1/animate.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/Content/css/site.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/Content/css/responsive.css" rel="stylesheet" asp-append-version="true" />
-    </environment>
-    <environment names="Staging,Production">
-        <link href="~/Content/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/Content/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/Content/plugins/OwlCarousel2-2.2.1/owl.carousel.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/Content/plugins/OwlCarousel2-2.2.1/owl.theme.default.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/Content/plugins/OwlCarousel2-2.2.1/animate.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/Content/css/site.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/Content/css/responsive.min.css" rel="stylesheet" asp-append-version="true" />
-    </environment>
 
     @this.RenderSection("Styles", required: false)
 </head>
@@ -86,18 +75,6 @@
         @Html.Partial("_FooterPartial")
     </div>
 
-    <environment names="Development">
-        <script src="~/Content/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
-        <script src="~/Content/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
-        <script src="~/Content/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
-        <script src="~/Content/js/popper.js" asp-append-version="true"></script>
-        <script src="~/Content/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
-        <script src="~/Content/plugins/OwlCarousel2-2.2.1/owl.carousel.js" asp-append-version="true"></script>
-        <script src="~/Content/plugins/easing/easing.js" asp-append-version="true"></script>
-        <script src="~/Content/plugins/parallax-js-master/parallax.min.js" asp-append-version="true"></script>
-        <script src="~/Content/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment names="Staging,Production">
         <script src="~/Content/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
         <script src="~/Content/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
         <script src="~/Content/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
@@ -107,7 +84,6 @@
         <script src="~/Content/plugins/easing/easing.js" asp-append-version="true"></script>
         <script src="~/Content/plugins/parallax-js-master/parallax.min.js" asp-append-version="true"></script>
         <script src="~/Content/js/site.min.js" asp-append-version="true"></script>
-    </environment>
 
     @this.RenderSection("Scripts", required: false)
 </body>

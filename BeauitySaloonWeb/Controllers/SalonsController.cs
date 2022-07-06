@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using BeauitySaloonWeb.CustomsValidations;
 using BeauitySaloonWeb.Models;
-using BeauitySaloonWeb.Models.ViewModel.Categories;
 using BeauitySaloonWeb.Models.ViewModel.Salons;
 using BeauitySaloonWeb.Models.ViewModel.SalonServices;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Controllers
@@ -16,7 +13,7 @@ namespace BeauitySaloonWeb.Controllers
     {
         // GET: Salons
 
-        private static ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
+        private static readonly ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
 
         public ActionResult Index( int? sortId, // categoryId
             string currentFilter,
@@ -40,7 +37,7 @@ namespace BeauitySaloonWeb.Controllers
             ViewData["CurrentFilter"] = sortId;
             int pageSize = 8;
             var pageIndex = pageNumber ?? 1;
-            var salons = Mapper.Map<IEnumerable<SalonViewModel>>(GetAllWithPaging(searchString, sortId, pageSize, pageIndex));
+            var salons = Mapper.Map<IEnumerable<SalonViewModel>>(GetAllWithPaging(searchString, sortId));
             var salonsList = salons.ToList();
             var count = _applicationDbContext.Salons.Count();
 
@@ -75,22 +72,18 @@ namespace BeauitySaloonWeb.Controllers
         }
 
         //Custom Methods
-        private IEnumerable<Salon> GetAllWithPaging(string searchString, int? sortId, int pageSize, int pageIndex)
+        private IEnumerable<Salon> GetAllWithPaging(string searchString, int? sortId)
         {
             IEnumerable<Salon> query = _applicationDbContext.Salons.OrderBy(x => x.Name);
             if (!string.IsNullOrEmpty(searchString))
             {
-                query = query
-                    .Where(x => x.Name.ToLower()
-                                .Contains(searchString.ToLower()));
+                query = query.Where(x => x.Name.ToLower().Contains(searchString.ToLower()));
             }
-
             if (sortId != null)
             {
                 query = query.Where(x => x.CategoryId == sortId);
             }
             return query;
         }
-
     }
 }

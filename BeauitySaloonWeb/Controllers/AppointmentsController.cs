@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Controllers
 {
+    [Authorize]
     public class AppointmentsController : Controller
     {       
 

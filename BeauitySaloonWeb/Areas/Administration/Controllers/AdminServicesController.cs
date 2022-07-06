@@ -11,7 +11,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
 {
     public class AdminServicesController : Controller
     {
-        private static ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
+        private static readonly ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
 
         // GET: Administration/Services
         public ActionResult Index()

@@ -1,0 +1,11 @@
+﻿@model BeauitySaloonWeb.Models.ViewModel.Salons.SalonsListViewModel
+@{
+    this.ViewData["Title"] = "Salon Manager Dashboard";
+}
+
+<h3>Welcome to Salon Manager Dashboard!</h3>
+<p>Here are the salons you manage:</p>
+
+<div>
+    @Html.Partial("_SalonsSimpleList");
+</div>

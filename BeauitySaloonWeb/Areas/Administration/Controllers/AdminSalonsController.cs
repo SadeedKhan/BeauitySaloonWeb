@@ -5,14 +5,13 @@ using BeauitySaloonWeb.Models.ViewModel.Salons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Areas.Administration.Controllers
 {
     public class AdminSalonsController : Controller
     {
-        private static ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
+        private static readonly ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
 
         // GET: Administration/Salons
         public ActionResult Index()

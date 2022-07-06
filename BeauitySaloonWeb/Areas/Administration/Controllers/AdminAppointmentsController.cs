@@ -12,7 +12,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
 {
     public class AdminAppointmentsController : AdministrationController
     {
-        private static ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
+        private static readonly ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
         // GET: Administration/Appointments
         public ActionResult Index()
         {

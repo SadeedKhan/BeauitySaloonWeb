@@ -11,7 +11,7 @@ namespace BeauitySaloonWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private static ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
+        private static readonly ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
         public ActionResult Index()
         {
             try
