@@ -615,6 +615,9 @@
     <Content Include="Areas\Manager\Views\Shared\_ManagerMenuPartial.cshtml" />
     <Content Include="Areas\Manager\Views\Shared\_ManagerHeaderPartial.cshtml" />
     <Content Include="Areas\Manager\Views\Shared\_ManagerSidebarPartial.cshtml" />
+    <Content Include="Areas\Administration\Views\AdminCategories\AddCategory.cshtml" />
+    <Content Include="Areas\Administration\Views\AdminCities\AddCity.cshtml" />
+    <Content Include="Areas\Administration\Views\AdminServices\AddService.cshtml" />
     <None Include="bin\BeauitySaloonWeb.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
     <Content Include="bin\roslyn\csc.rsp" />
@@ -755,9 +758,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administration\Data\" />
-    <Folder Include="Areas\Administration\Views\AdminCategories\" />
-    <Folder Include="Areas\Administration\Views\AdminCities\" />
-    <Folder Include="Areas\Administration\Views\AdminServices\" />
     <Folder Include="Areas\Manager\Data\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Manager\" />

@@ -7,9 +7,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.Accounts;
-using System.Security.Claims;
-using System.Collections.Generic;
 using System;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BeauitySaloonWeb.Controllers
 {
@@ -18,7 +17,7 @@ namespace BeauitySaloonWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-       
+
         private static readonly ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
         public AccountController()
         {

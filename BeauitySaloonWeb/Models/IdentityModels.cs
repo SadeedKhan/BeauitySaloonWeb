@@ -38,6 +38,9 @@ namespace BeauitySaloonWeb.Models
         public DbSet<SalonService> SalonServices { get; set; }
 
         public DbSet<Appointment> Appointments { get; set; }
+
+
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
