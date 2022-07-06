@@ -1,0 +1,49 @@
+﻿@model BeauitySaloonWeb.Models.ViewModel.Categories.CategoryInputModel
+@{
+    this.ViewData["Title"] = "Add Category";
+    var categories = this.ViewData["Categories"] as SelectList;
+    var cities = this.ViewData["Cities"] as SelectList;
+}
+<div class="col-lg-6">
+    <h2>New Category</h2>
+    @using (Html.BeginForm("AddCategory", "AdminCategories", FormMethod.Post, new { @class = "pt-4" }))
+    {
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @required = "required" })
+                <span>@Html.ValidationMessageFor(x => x.Name, null, new { @class = "text-danger" })</span>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Image</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(x => x.Image, new { @type = "file", @class = "form-control-file image-upload", @required = "required" })
+                <span>@Html.ValidationMessageFor(x => x.Image, null, new { @class = "text-danger" })</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(x => x.Description, new { @class = "form-control", @required = "required" })
+                <span>@Html.ValidationMessageFor(x => x.Description, null, new { @class = "text-danger" })</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 text-right">
+                <button type="submit" class="btn btn-success">
+                    Add Category
+                </button>
+            </div>
+            <div class="col-sm-6">
+                <a class="btn btn-danger" href="/Administration/AdminCategories/Index">Cancel</a>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="~/Content/js/upload-image.js" asp-append-version="true"></script>
+}
+
+
