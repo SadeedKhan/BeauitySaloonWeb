@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Areas.Administration.Controllers.Base
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
     {
      

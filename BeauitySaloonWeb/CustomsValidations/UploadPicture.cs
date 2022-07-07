@@ -9,12 +9,8 @@ namespace BeauitySaloonWeb.CustomsValidations
     {
         public static string WriteFile(HttpPostedFileWrapper file, string FolderName)
         {
-            bool WriteFileWithRoot = true;
             string fileName = null;
             string pathwithfilename;
-
-            if (WriteFileWithRoot == true)
-            {
                 var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
                 var pathBuilt = Path.Combine(HostingEnvironment.MapPath($"~/Uploads/{FolderName}/"));
                 fileName = Path.GetFileName(file.FileName);
@@ -24,8 +20,7 @@ namespace BeauitySaloonWeb.CustomsValidations
                 }
                 var path = Path.Combine(HostingEnvironment.MapPath($"~/Uploads/{FolderName}/"), fileName);
                 file.SaveAs(path);
-            }
-            pathwithfilename = $"Uploads/{FolderName}/" + fileName;
+            pathwithfilename = $"/Uploads/{FolderName}/" + fileName;
             return pathwithfilename;
         }
     }

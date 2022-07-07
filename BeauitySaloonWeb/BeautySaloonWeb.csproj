@@ -618,6 +618,10 @@
     <Content Include="Areas\Administration\Views\AdminCategories\AddCategory.cshtml" />
     <Content Include="Areas\Administration\Views\AdminCities\AddCity.cshtml" />
     <Content Include="Areas\Administration\Views\AdminServices\AddService.cshtml" />
+    <Content Include="Areas\Administration\Views\AdminCategories\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\AdminBlogPosts\AddBlogPost.cshtml" />
+    <Content Include="Areas\Administration\Views\AdminCities\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\AdminServices\Index.cshtml" />
     <None Include="bin\BeauitySaloonWeb.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
     <Content Include="bin\roslyn\csc.rsp" />
@@ -705,6 +709,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Uploads\Categories\HairWoufaua.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

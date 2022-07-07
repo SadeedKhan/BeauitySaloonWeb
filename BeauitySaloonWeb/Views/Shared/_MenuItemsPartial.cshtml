@@ -11,7 +11,6 @@
 @if (User.Identity.IsAuthenticated && this.User.IsInRole("Manager"))
 {
     <li class="menu_item">
-        @Html.ActionLink("Salon Manager", "Index", "Dashboard", new { @class = "fa fa-tasks" })
-        <a asp-area="Manager" asp-controller="Dashboard" asp-action="Index"><i class="fa fa-tasks" aria-hidden="true"></i> Salon Manager</a>
+        <a href="/Manager/ManagerDashboard/Index"><i class="fa fa-tasks" aria-hidden="true"></i> Salon Manager</a>
     </li>
 }

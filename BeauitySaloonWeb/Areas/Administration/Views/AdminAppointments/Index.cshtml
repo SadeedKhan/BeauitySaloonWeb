@@ -3,9 +3,9 @@
     this.ViewData["Title"] = "Appointments";
 }
 @{
-    if (Model.Appointments!=null)
+    if (Model.Appointments != null)
     {
-        <h2>All Appointments (Model.Appointments.Count())</h2>
+        <h2>All Appointments (@Model.Appointments.Count())</h2>
 
         <table class="table table-bordered table-striped">
             <thead class="thead-light">
@@ -43,6 +43,10 @@
                 }
             </tbody>
         </table>
+    }
+    else
+    {
+        <h2>All Appointments (0)</h2>
     }
 }
 

@@ -1,0 +1,53 @@
+﻿@model BeauitySaloonWeb.Models.ViewModel.BlogPosts.BlogPostInputModel
+@{
+    this.ViewData["Title"] = "Add Blog Post";
+}
+
+<div class="col-lg-6">
+    <h2>New Blog Post</h2>
+        @using (Html.BeginForm("AddBlogPost", "AdminBlogPost", FormMethod.Post, new { @class = "pt-4" }))
+        {
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @required = "required" })
+                    <span>@Html.ValidationMessageFor(s => s.Title, null, new { @class = "text-danger" })</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Author</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.Author, new { @class = "form-control", @required = "required" })
+                    <span>@Html.ValidationMessageFor(x => x.Author, null, new { @class = "text-danger" })</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Image</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.Image, new {@type="file" ,@class = "form-control-file image-upload", @required = "required" })
+                    <span>@Html.ValidationMessageFor(x => x.Image, null, new { @class = "text-danger" })</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Content</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.Content, new { @class = "form-control", @required = "required" })
+                    <span>@Html.ValidationMessageFor(x => x.Content, null, new { @class = "text-danger" })</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 text-right">
+                    <button type="submit" class="btn btn-success">
+                        Add Blog Post
+                    </button>
+                </div>
+                <div class="col-sm-6">
+                    <a class="btn btn-danger" href="/Administration/AdminBlogPosts/Index">Cancel</a>
+                </div>
+            </div>
+            }
+</div>
+
+@section Scripts {
+    <script src="~/Content/js/upload-image.js" asp-append-version="true"></script>
+}

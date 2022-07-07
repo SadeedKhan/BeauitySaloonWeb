@@ -1,0 +1,69 @@
+﻿@model BeauitySaloonWeb.Models.ViewModel.Categories.CategoriesListViewModel
+@{
+    this.ViewData["Title"] = "Blog Posts";
+}
+@{
+    if (Model.Categories != null)
+    {
+        <h2>
+            All Categories (@Model.Categories.Count())
+            <span>
+                <a class="btn btn-info" href="/Administration/AdminCategories/AddCategory">Add New Category</a>
+            </span>
+        </h2>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Services</th>
+                    <th scope="col">Salons</th>
+                    <th scope="col">Delete Button</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in this.Model.Categories)
+                {
+                    <tr>
+                        <th scope="row">@category.Name</th>
+                        <td>
+                            <img class="align-self-center" src="@category.ImageUrl" style="width:180px;height:120px;">
+                        </td>
+                        <td>@category.Description</td>
+                        <td>@category.ServicesCount</td>
+                        <td>@category.SalonsCount</td>
+                        <td>
+                            @if (category.Id <= 6)
+                            {
+                                <div class="text-muted" style="font-size:smaller">
+                                    Seeded Data <br />Cannot Be Deleted
+                                </div>
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("DeleteCategory", "AdminCategories", new { id = category.Id }, FormMethod.Post))
+                                {
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        Delete
+                                    </button>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2>
+            AllCategories (0)
+            <span>
+                <a class="btn btn-info" href="/Administration/AdminCategories/AddCategory">Add New Category</a>
+            </span>
+        </h2>
+    }
+}
+

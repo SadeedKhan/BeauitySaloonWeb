@@ -18,7 +18,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
             {
                 var viewModel = new CitiesListViewModel();
                 IEnumerable<City> list = _applicationDbContext.Cities.ToList();
-                Mapper.CreateMap<Category, CityViewModel>();
+                Mapper.CreateMap<City, CityViewModel>();
                 if (list.Any())
                 {
                     viewModel.Cities = Mapper.Map<IEnumerable<CityViewModel>>(list); //does not work, "cannot convert from 'System.Collections.Generic.IEnumerable<BloodDonatorsApp.Models.Donation>' to 'BloodDonatorsApp.Models.Donation'
@@ -47,8 +47,9 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
 
             _applicationDbContext.Cities.Add(new City
             {
-
                 Name = input.Name,
+                CreatedOn=DateTime.Now,
+                IsDeleted=false
             });
             _applicationDbContext.SaveChanges();
 

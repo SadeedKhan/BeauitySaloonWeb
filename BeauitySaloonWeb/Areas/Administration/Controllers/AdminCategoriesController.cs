@@ -5,8 +5,8 @@ using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.Categories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Areas.Administration.Controllers
@@ -51,22 +51,33 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
             string imageUrl;
             try
             {
-                imageUrl = UploadPicture.WriteFile(input.Image, "Categories");
+                var allowedExtensions = new[] {".Jpg", ".png", ".jpg", "jpeg"};
+                var ext = Path.GetExtension(input.file.FileName); //getting the extension(ex-.jpg)  
+                if (allowedExtensions.Contains(ext)) //check what type of extension  
+                {
+                    imageUrl = UploadPicture.WriteFile(input.file, "Categories");
+                    _applicationDbContext.Categories.Add(new Category
+                    {
+                        Name = input.Name,
+                        Description = input.Description,
+                        ImageUrl = imageUrl,
+                        CreatedOn = DateTime.Now
+                    });
+                    _applicationDbContext.SaveChanges();
+                    return this.RedirectToAction("Index");
+                   
+                }
+                else
+                {
+                    ViewBag.message = "Please choose only Image file";
+                    return View(input);
+                }
             }
             catch (Exception ex)
             {
                 ViewBag.Exception = ex.Message.ToString();
-                return View("Error");
+                return View("AddCategory");
             }
-            _applicationDbContext.Categories.Add(new Category
-            {
-
-                Name = input.Name,
-                Description = input.Description,
-                ImageUrl = imageUrl,
-            });
-            _applicationDbContext.SaveChanges();
-            return this.RedirectToAction("Index");
         }
 
         [HttpPost]

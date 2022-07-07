@@ -1,0 +1,67 @@
+﻿@model BeauitySaloonWeb.Models.ViewModel.Services.ServicesListViewModel
+@{
+    this.ViewData["Title"] = "Services";
+}
+@{
+    if (Model.Services != null)
+    {
+        <h2>
+            All Services (@Model.Services.Count())
+            <span>
+                <a class="btn btn-info" href="/Administration/AdminServices/AddService">Add New Service</a>
+            </span>
+        </h2>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Salons</th>
+                    <th scope="col">Appointments</th>
+                    <th scope="col">Delete Button</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var service in this.Model.Services)
+                {
+                    <tr>
+                        <th scope="row">@service.Name</th>
+                        <td>@service.CategoryName</td>
+                        <td>@service.Description</td>
+                        <td>@service.SalonsCount</td>
+                        <td>@service.AppointmentsCount</td>
+                        <td>
+                            @if (service.Id <= 55)
+                            {
+                                <div class="text-muted" style="font-size:smaller">
+                                    Seeded Data <br />Cannot Be Deleted
+                                </div>
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("DeleteService", "AdminServices", new { id = service.Id }, FormMethod.Post))
+                                {
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        Delete
+                                    </button>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <h2>
+            All Services (0)
+            <span>
+                <a class="btn btn-info" href="/Administration/AdminServices/AddService">Add New Service</a>
+            </span>
+        </h2>
+    }
+}

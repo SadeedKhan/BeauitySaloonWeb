@@ -29,7 +29,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
         public ActionResult AddService()
         {
             var categories = _applicationDbContext.Categories.ToList();
-            this.ViewData["Categories"] = new SelectList(categories, "Id", "Name");
+            ViewData["Categories"] = new SelectList(categories, "Id", "Name");
 
             return this.View();
         }
