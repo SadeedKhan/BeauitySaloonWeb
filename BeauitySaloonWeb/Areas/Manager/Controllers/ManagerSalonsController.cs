@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BeauitySaloonWeb.Areas.Manager.Controllers.Base;
 using BeauitySaloonWeb.Models;
+using BeauitySaloonWeb.Models.ViewModel.Appointments;
 using BeauitySaloonWeb.Models.ViewModel.Salons;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,17 @@ namespace BeauitySaloonWeb.Areas.Manager.Controllers
             {
                 Mapper.CreateMap<Salon, SalonWithServicesViewModel>();
                 var viewModel = new SalonWithServicesViewModel();
-                viewModel = Mapper.Map<SalonWithServicesViewModel>(_applicationDbContext.SalonServices.Where(x => x.Id == id).SingleOrDefault());
-                if (viewModel == null)
+                viewModel = Mapper.Map<SalonWithServicesViewModel>(_applicationDbContext.Salons.Where(x => x.Id == id).SingleOrDefault());
+                if (viewModel != null)
+                {
+                    Mapper.CreateMap<SalonService, SalonServiceViewModel>();
+                    viewModel.Services = Mapper.Map<IEnumerable<SalonServiceViewModel>>(_applicationDbContext.SalonServices.Where(x => x.SalonId == viewModel.Id).ToList());
+                    return View(viewModel);
+                }
+                else
                 {
                     return View(new SalonWithServicesViewModel());
                 }
-                return View(viewModel);
             }
             catch (Exception ex)
             {
@@ -41,11 +47,11 @@ namespace BeauitySaloonWeb.Areas.Manager.Controllers
                 var salonService = _applicationDbContext.SalonServices.Where(x => x.SalonId == salonId && x.ServiceId == serviceId).FirstOrDefault();
                 salonService.Available = !salonService.Available;
                 _applicationDbContext.SaveChanges();
-                return RedirectToAction("Details", new { id = salonId });
+                return RedirectToAction("Details", new { id = salonId, Area = "Manager" });
             }
             catch (Exception ex)
             {
-              ViewBag.Exception = ex.Message.ToString();
+                ViewBag.Exception = ex.Message.ToString();
                 return View("Error");
             }
         }
@@ -58,22 +64,43 @@ namespace BeauitySaloonWeb.Areas.Manager.Controllers
                 var appointment = _applicationDbContext.Appointments.Where(x => x.Id == id).FirstOrDefault();
                 appointment.Confirmed = true;
                 _applicationDbContext.SaveChanges();
-                return RedirectToAction("Details", new { id = salonId });
+                return RedirectToAction("Details", new { id = salonId, Area = "Manager" });
             }
             catch (Exception ex)
             {
                 ViewBag.Exception = ex.Message.ToString();
-                return View("Error");
+                return RedirectToAction("Error");
             }
         }
 
         [HttpPost]
-        public  ActionResult DeclineAppointment(int id, string salonId)
+        public ActionResult DeclineAppointment(int id, string salonId)
         {
             var appointment = _applicationDbContext.Appointments.Where(x => x.Id == id).FirstOrDefault();
             appointment.Confirmed = false;
             _applicationDbContext.SaveChanges();
-            return this.RedirectToAction("Details", new { id = salonId });
+            return RedirectToAction("Details", new { id = salonId, Area = "Manager" });
+        }
+
+        [HttpGet]
+        public ActionResult GetAppointmentDetailsBySalonId(string id)
+        {
+            try
+            {
+                Mapper.CreateMap<Appointment, AppointmentViewModel>();
+                var viewModel = new AppointmentsListViewModel();
+                IEnumerable<Appointment> list = _applicationDbContext.Appointments.Where(x => x.SalonId == id).ToList();
+                if (list != null && list.Any())
+                {
+                    viewModel.Appointments = Mapper.Map<IEnumerable<AppointmentViewModel>>(list);
+                }
+                return PartialView("~/Areas/Manager/Views/ManagerSalons/_AllAppointmentsBySalon.cshtml", viewModel);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e.Message;
+                return View("Error"); ;
+            }
         }
     }
 }

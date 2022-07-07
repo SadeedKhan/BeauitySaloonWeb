@@ -1,5 +1,4 @@
-﻿@model BeauitySaloonWeb.Models.ViewModel.Salons.SalonsSimpleListViewModel
-@{
+﻿@{
     this.ViewData["Title"] = "Salon Manager Dashboard";
 }
 
@@ -7,14 +6,26 @@
 <p>Here are the salons you manage:</p>
 
 <div>
-    @{
-        if (Model.Salons != null)
-        {
-            foreach (var salon in Model.Salons)
-            {
-                <a href="/Manager/Salons/Details/@salon.Id"
-                   class="list-group-item list-group-item-action bg-light">@salon.Name</a>
-            }
-        }
-    }
+    <div id="_SalonsSimpleListIndex"></div>
 </div>
+@section Scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+            SalonsSimpleList();
+        });
+
+        function SalonsSimpleList() {
+            $.ajax({
+                type: "Get",
+                url: "/ManagerDashboard/SalonsSimpleList",
+                success: function (res) {
+                    $('#_SalonsSimpleListIndex').empty().html(res);
+                    $('#_SalonsSimpleList').empty().html(res);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            });
+        }
+    </script>
+}

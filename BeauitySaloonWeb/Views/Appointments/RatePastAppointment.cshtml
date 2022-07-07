@@ -1,85 +1,92 @@
-﻿
+﻿@model BeauitySaloonWeb.Models.ViewModel.Appointments.AppointmentRatingViewModel
 @{
-    ViewBag.Title = "RatePastAppointment";
+    this.ViewData["Title"] = "Rate Past Appointment";
 }
 
+@{
+    if (Model != null)
+    {
+        if (Model.IsSalonRatedByTheUser == true)
+        {
+            <h3>You already rated the Salon for this appointment!</h3>
 
-
-@if (Model.IsSalonRatedByTheUser == true)
-{
-    <h3>Вы уже оценили работу салона!</h3>
-
-    <div class="pt-3">
-        <a class="btn btn-info" asp-area="" asp-controller="Appointments" asp-action="Index">
-            Обратно к записям
-        </a>
-    </div>
-}
-else
-{
-    <div class="row row-eq-height">
-        <!-- Info Box -->
-        <div class="col-lg-4 info_box_col">
-            <div class="info_box">
-                <div class="info_image"><img src="@Model.SalonImageUrl" alt=""></div>
-                <div class="info_content">
-                    <div class="info_title">@Model.SalonName</div>
-                    <div class="info_text">Категория: <strong>@Model.SalonCategoryName</strong></div>
-                    <div class="info_text">Город: <strong>@Model.SalonCityName</strong></div>
-                    <div class="info_text">Адрес: <strong>@Model.SalonAddress</strong></div>
+            <div class="pt-3">
+                <a class="btn btn-info" href="/Appointments/Index">
+                    Back To Appointments
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="row row-eq-height">
+                <!-- Info Box -->
+                <div class="col-lg-4 info_box_col">
+                    <div class="info_box">
+                        <div class="info_image"><img src="@Model.SalonImageUrl" alt=""></div>
+                        <div class="info_content">
+                            <div class="info_title">@Model.SalonName</div>
+                            <div class="info_text">Category: <strong>@Model.SalonCategoryName</strong></div>
+                            <div class="info_text">City: <strong>@Model.SalonCityName</strong></div>
+                            <div class="info_text">Address: <strong>@Model.SalonAddress</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Panel -->
+                <div class="col-lg-6">
+                    <h2>
+                        How would you rate
+                        <br />experience at this salon:
+                    </h2>
+                    <div class="col-lg-6">
+                        @using (Html.BeginForm("RateSalon", "Appointments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <form method="post">
+                                <div class="row my-3">
+                                    <p>Choose here:</p>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="star-rating">
+                                        <span class="fa fa-star-o" data-rating="1"></span>
+                                        <span class="fa fa-star-o" data-rating="2"></span>
+                                        <span class="fa fa-star-o" data-rating="3"></span>
+                                        <span class="fa fa-star-o" data-rating="4"></span>
+                                        <span class="fa fa-star-o" data-rating="5"></span>
+                                        @Html.HiddenFor(x => x.SalonId, new {type="hidden" @class = "rating-value form-control form-control-sm", value = "0.0", hidden = "hidden" })
+                                        @Html.TextBoxFor(x => x.RateValue, new { type = "number", @class = "form-control form-control-sm disabled", value = "0", required = "required", @readonly = "readonly" })
+                                        <span>@Html.ValidationMessageFor(s => s.RateValue, null, new { @class = "text-danger" })</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    @Html.HiddenFor(x => x.SalonId, new { @class = "form-control", hidden = "hidden" })
+                                    @Html.HiddenFor(x => x.Id, new { @class = "form-control", hidden = "hidden" })
+                                </div>
+                                <div class="row my-3">
+                                    <button type="submit" class="btn btn-outline-success">
+                                        Rate!
+                                    </button>
+                                </div>
+                                <div class="row my-3">
+                                    <div>
+                                        <a class="btn btn-outline-dark" href="/Appointments/Index">
+                                            Not Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                        </div>
                 </div>
             </div>
-        </div>
-        <!-- Panel -->
-        <div class="col-lg-6">
-            <h2>
-                Каую оценку
-                <br />Вы бы нам поставили?
-            </h2>
-            <div class="col-lg-6">
-                <form method="post">
-                    <div class="row my-3">
-                        <p>Оцените:</p>
-                    </div>
-                    <div class="row my-3">
-                        <div class="star-rating">
-                            <span class="fa fa-star-o" data-rating="1"></span>
-                            <span class="fa fa-star-o" data-rating="2"></span>
-                            <span class="fa fa-star-o" data-rating="3"></span>
-                            <span class="fa fa-star-o" data-rating="4"></span>
-                            <span class="fa fa-star-o" data-rating="5"></span>
-                            <input type="hidden" class="rating-value form-control form-control-sm" id="selectedRating" value="0.0" />
-                            <input type="number" class="form-control form-control-sm disabled" value="0"
-                                   asp-for="@Model.RateValue" required readonly />
-                            <span asp-validation-for="RateValue" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div>
-                        <input asp-for="@Model.SalonId" value="@Model.SalonId" class="form-control" hidden>
-                        <input asp-for="@Model.Id" value="@Model.Id" class="form-control" hidden>
-                    </div>
-                    <div class="row my-3">
-                        <button type="submit" class="btn btn-outline-success"
-                                asp-area="" asp-controller="Appointments" asp-action="RateSalon">
-                            Оценить!
-                        </button>
-                    </div>
-                    <div class="row my-3">
-                        <div>
-                            <a class="btn btn-outline-dark" asp-area="" asp-controller="Appointments" asp-action="Index">
-                                Не сейчас
-                            </a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+        }
+    }
 }
 
+
 @section Scripts {
-    <script src="~/js/rating-responsive.js" asp-append-version="true"></script>
-    <script type="text/javascript">$.validator.setDefaults({
+    <script src="~/Content/js/rating-responsive.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $.validator.setDefaults({
             ignore: ""
-        })</script>
+        })
+    </script>
 }

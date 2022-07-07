@@ -3,6 +3,7 @@ using BeauitySaloonWeb.CustomsValidations;
 using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.Salons;
 using BeauitySaloonWeb.Models.ViewModel.SalonServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -49,26 +50,29 @@ namespace BeauitySaloonWeb.Controllers
             return View(viewModel);
 
         }
-     
 
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
-
-            Mapper.CreateMap<SalonService, SalonServiceSimpleViewModel>();
-            
-            var salonService = _applicationDbContext.SalonServices.Where(x => x.SalonId == id).SingleOrDefault();
-
-            if (salonService == null || !salonService.Available)
+            try
+            {
+                Mapper.CreateMap<Salon, SalonWithServicesViewModel>();
+                SalonWithServicesViewModel viewModel = Mapper.Map<SalonWithServicesViewModel>(_applicationDbContext.Salons.Where(x => x.Id == id).SingleOrDefault());
+                if(viewModel != null)
+                {
+                    Mapper.CreateMap<SalonService, SalonServiceViewModel>();
+                    viewModel.Services = Mapper.Map<IEnumerable<SalonServiceViewModel>>(_applicationDbContext.SalonServices.Where(x => x.SalonId == viewModel.Id).ToList());
+                    return this.View(viewModel);
+                }
+                else
+                {
+                    return View(new SalonWithServicesViewModel());
+                }
+            }
+            catch (Exception ex)
             {
                 ViewBag.Exceptions = "No Salon Service Found...!";
-                return this.View("Error");
+                return this.View("Error"); ;
             }
-
-            var viewModel = new SalonServiceSimpleViewModel
-            {
-                SalonId = id
-            };
-            return this.View(viewModel);
         }
 
         //Custom Methods

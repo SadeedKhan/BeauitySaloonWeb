@@ -16,16 +16,21 @@ namespace BeauitySaloonWeb.Areas.Manager.Controllers
         // GET: Manager/ManagerDashboard
         public ActionResult Index()
         {
+         return View();
+        }
+
+        public ActionResult SalonsSimpleList()
+        {
             try
             {
                 var viewModel = new SalonsSimpleListViewModel();
                 IEnumerable<Salon> list = _applicationDbContext.Salons.ToList();
                 Mapper.CreateMap<Salon, SalonSimpleViewModel>();
-                if (list.Any() || list!=null)
+                if (list.Any() || list != null)
                 {
                     viewModel.Salons = Mapper.Map<IEnumerable<SalonSimpleViewModel>>(list); //does not work, "cannot convert from 'System.Collections.Generic.IEnumerable<BloodDonatorsApp.Models.Donation>' to 'BloodDonatorsApp.Models.Donation'
                 }
-                return this.View(viewModel);
+                return PartialView("~/Areas/Manager/Views/ManagerDashboard/_SalonsSimpleList.cshtml", viewModel);
             }
             catch (Exception ex)
             {

@@ -23,6 +23,6 @@ namespace BeauitySaloonWeb.Models.ViewModel.Salons
 
         public int RatersCount { get; set; }
 
-        public virtual ICollection<SalonServiceViewModel> Services { get; set; }
+        public virtual IEnumerable<SalonServiceViewModel> Services { get; set; }
     }
 }

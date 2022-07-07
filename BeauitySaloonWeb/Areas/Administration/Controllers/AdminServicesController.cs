@@ -43,14 +43,14 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
             }
 
             // Add Service
-           _applicationDbContext.Services.Add(new Service
+            var serviceId = _applicationDbContext.Services.Add(new Service
             {
                 Name = input.Name,
                 CategoryId = input.CategoryId,
                 Description = input.Description,
                 CreatedOn=DateTime.Now
             });
-            var serviceId = _applicationDbContext.SaveChanges();
+            _applicationDbContext.SaveChanges();
 
             // Add to the Salon all Services from its Category
             var salonsIds = _applicationDbContext.Salons.Where(x => x.CategoryId == input.CategoryId).OrderBy(x => x.Id).Select(x => x.Id).ToList();
@@ -60,7 +60,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
                 _applicationDbContext.SalonServices.Add(new SalonService
                 {
                     SalonId = salonId.ToString(),
-                    ServiceId = serviceId,
+                    ServiceId = serviceId.Id,
                     Available = true,
                     CreatedOn = DateTime.Now
                 });

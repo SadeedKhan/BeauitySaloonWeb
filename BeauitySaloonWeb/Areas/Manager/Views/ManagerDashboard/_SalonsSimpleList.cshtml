@@ -1,15 +1,12 @@
 ﻿@model BeauitySaloonWeb.Models.ViewModel.Salons.SalonsSimpleListViewModel
-@{
-    this.ViewData["Title"] = "Default";
-}
+
 @{
     if (Model.Salons != null)
     {
         foreach (var salon in Model.Salons)
         {
-            <a href="/Manager/Salons/Details/@salon.Id" 
+            <a href="/Manager/ManagerSalons/Details/@salon.Id"
                class="list-group-item list-group-item-action bg-light">@salon.Name</a>
         }
     }
 }
-
