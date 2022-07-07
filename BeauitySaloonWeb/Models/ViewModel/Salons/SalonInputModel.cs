@@ -32,8 +32,7 @@ namespace BeauitySaloonWeb.Models.ViewModel.Salons
         public string Address { get; set; }
 
         [DataType(DataType.Upload)]
-        [ValidateImageFile(ErrorMessage = ErrorMessages.Image)]
         [AllowHtml]
-        public HttpPostedFileWrapper Image { get; set; }
+        public HttpPostedFileWrapper file { get; set; }
     }
 }

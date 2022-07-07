@@ -17,7 +17,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
         public ActionResult Index()
         {
             var viewModel = new ServicesListViewModel();
-            IEnumerable<City> list = _applicationDbContext.Cities.ToList();
+            IEnumerable<Service> list = _applicationDbContext.Services.ToList();
             Mapper.CreateMap<Service, ServiceViewModel>();
             if (list.Any())
             {
@@ -48,6 +48,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
                 Name = input.Name,
                 CategoryId = input.CategoryId,
                 Description = input.Description,
+                CreatedOn=DateTime.Now
             });
             var serviceId = _applicationDbContext.SaveChanges();
 
@@ -61,6 +62,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
                     SalonId = salonId.ToString(),
                     ServiceId = serviceId,
                     Available = true,
+                    CreatedOn = DateTime.Now
                 });
                 _applicationDbContext.SaveChanges();
             }

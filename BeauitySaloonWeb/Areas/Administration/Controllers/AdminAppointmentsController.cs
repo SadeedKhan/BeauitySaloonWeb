@@ -17,7 +17,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
         public ActionResult Index()
         {
             Mapper.CreateMap<Appointment, AppointmentViewModel>();
-            var viewModel = new AppointmentsListViewModel();
+            var viewModel =  new AppointmentsListViewModel();
             var list = _applicationDbContext.Appointments.AsEnumerable().OrderByDescending(x => x.DateTime).ToList();
             if (list != null && list.Any())
             {

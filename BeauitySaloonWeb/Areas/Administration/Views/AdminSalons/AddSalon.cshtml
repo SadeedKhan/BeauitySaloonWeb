@@ -7,8 +7,8 @@
 
 <div class="col-lg-6">
     <h2>New Salon</h2>
-    @using (Html.BeginForm("AddSalon", "AdminSalons",FormMethod.Post,new {@class= "pt-4" }))
-            {
+    @using (Html.BeginForm("AddSalon", "AdminSalons",FormMethod.Post,new {@class= "pt-4", enctype = "multipart/form-data" }))
+    {
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Name</label>
@@ -20,8 +20,8 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Image</label>
             <div class="col-sm-10">
-                @Html.TextBoxFor(x => x.Image, new { @type="file", @class = "form-control-file image-upload", @required = "required" })
-                <span>@Html.ValidationMessageFor(x => x.Image, null, new { @class = "text-danger" })</span>
+                @Html.TextBoxFor(x => x.file, new { @type="file", @class = "form-control-file image-upload", @required = "required", name = "file" })
+                <span>@Html.ValidationMessageFor(x => x.file, null, new { @class = "text-danger" })</span>
             </div>
         </div>
         <div class="form-group row">
