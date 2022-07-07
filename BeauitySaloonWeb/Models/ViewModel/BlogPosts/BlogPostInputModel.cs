@@ -31,11 +31,9 @@ namespace BeauitySaloonWeb.Models.ViewModel.BlogPosts
             ErrorMessage = ErrorMessages.Author,
             MinimumLength = DataValidations.NameMinLength)]
         public string Author { get; set; }
-
-        [Required]
+        
         [DataType(DataType.Upload)]
         [AllowHtml]
-        [ValidateImageFile(ErrorMessage = ErrorMessages.Image)]
-        public HttpPostedFileWrapper Image { get; set; }
+        public HttpPostedFileWrapper file { get; set; }
     }
 }
