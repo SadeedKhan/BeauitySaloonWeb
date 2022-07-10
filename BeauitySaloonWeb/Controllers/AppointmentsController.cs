@@ -138,13 +138,23 @@ namespace BeauitySaloonWeb.Controllers
         {
             try
             {
-                var viewModel = new AppointmentViewModel();
-                Mapper.CreateMap<Appointment, AppointmentViewModel>();
-                var obj = _applicationDbContext.Appointments.Where(x => x.Id == id).SingleOrDefault();
-                if (obj != null)
-                {
-                    viewModel = Mapper.Map<AppointmentViewModel>(obj);
-                }
+                var viewModel = (from a in _applicationDbContext.Appointments
+                            join s in _applicationDbContext.Salons on a.SalonId equals s.Id.ToString()
+                            join se in _applicationDbContext.Services on a.ServiceId equals se.Id
+                                 join c in _applicationDbContext.Cities on s.CityId equals c.Id
+                                 select new AppointmentViewModel
+                            {
+                                Id = a.Id.ToString(),
+                                IsSalonRatedByTheUser = a.IsSalonRatedByTheUser,
+                                SalonAddress = s.Address,
+                                SalonId = a.SalonId,
+                                SalonName = s.Name,
+                                ServiceId = a.ServiceId,
+                                ServiceName = se.Name,
+                                SalonCityName=c.Name
+                                
+                            }
+                      ).SingleOrDefault();
                 return this.View(viewModel);
             }
             catch (Exception ex)
