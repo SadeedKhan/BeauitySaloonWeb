@@ -10,14 +10,13 @@
                 <a href="~/Administration/AdminDashboard/Index" title="Admin">Admin</a>
             </li>
         }
-<li>    
-    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-inline" }))
-    {
-    @Html.AntiForgeryToken()
-    <button class="btn btn-dark" type="submit"> Logout </button>
-    }
-</li>
-
+        <li>
+            @using (Html.BeginForm("LogOff", "Account",new { area = "" }, FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <button class="btn btn-dark" type="submit"> Logout </button>
+            }
+        </li>
     }
     else
     {
