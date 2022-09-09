@@ -138,10 +138,15 @@ namespace BeauitySaloonWeb.Controllers
         {
             try
             {
+
+
+                //var viewModel = appointmentsService.GetByIdAsync<AppointmentViewModel>(id);
+
                 var viewModel = (from a in _applicationDbContext.Appointments
                             join s in _applicationDbContext.Salons on a.SalonId equals s.Id.ToString()
                             join se in _applicationDbContext.Services on a.ServiceId equals se.Id
                                  join c in _applicationDbContext.Cities on s.CityId equals c.Id
+                                 where a.Id == id
                                  select new AppointmentViewModel
                             {
                                 Id = a.Id.ToString(),
@@ -154,7 +159,7 @@ namespace BeauitySaloonWeb.Controllers
                                 SalonCityName=c.Name
                                 
                             }
-                      ).SingleOrDefault();
+                      ).FirstOrDefault();
                 return this.View(viewModel);
             }
             catch (Exception ex)
