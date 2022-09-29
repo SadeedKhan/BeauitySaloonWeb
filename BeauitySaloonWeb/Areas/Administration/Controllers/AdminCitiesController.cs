@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BeauitySaloonWeb.Areas.Administration.Controllers.Base;
 using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.Cities;
 using System;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Areas.Administration.Controllers
 {
-    public class AdminCitiesController : Controller
+    public class AdminCitiesController : AdministrationController
     {
         private static ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
         public ActionResult Index()

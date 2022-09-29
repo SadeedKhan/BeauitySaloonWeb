@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BeauitySaloonWeb.Areas.Administration.Controllers.Base;
 using BeauitySaloonWeb.CustomsValidations;
 using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.Salons;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Areas.Administration.Controllers
 {
-    public class AdminSalonsController : Controller
+    public class AdminSalonsController : AdministrationController
     {
         private static readonly ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BeauitySaloonWeb.Areas.Administration.Controllers.Base;
 using BeauitySaloonWeb.Models;
 using BeauitySaloonWeb.Models.ViewModel.Services;
 using System;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace BeauitySaloonWeb.Areas.Administration.Controllers
 {
-    public class AdminServicesController : Controller
+    public class AdminServicesController : AdministrationController
     {
         private static readonly ApplicationDbContext _applicationDbContext = new ApplicationDbContext();
 
