@@ -51,7 +51,7 @@ namespace BeauitySaloonWeb.Areas.Administration.Controllers
             string imageUrl;
             try
             {
-                var allowedExtensions = new[] {".Jpg", ".png", ".jpg", "jpeg"};
+                var allowedExtensions = new[] {".Jpg", ".png", ".jpg", ".jpeg"};
                 var ext = Path.GetExtension(input.file.FileName); //getting the extension(ex-.jpg)  
                 if (allowedExtensions.Contains(ext)) //check what type of extension  
                 {

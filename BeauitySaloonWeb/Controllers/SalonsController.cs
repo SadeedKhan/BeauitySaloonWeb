@@ -70,7 +70,7 @@ namespace BeauitySaloonWeb.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Exceptions = "No Salon Service Found...!";
+                ViewBag.Exceptions = ex.Message;
                 return this.View("Error"); ;
             }
         }
